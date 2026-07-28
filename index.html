@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حاسبة البصمة الكربونية للشركات المصغرة</title>
+    <title>حاسبة البصمة الكربونية وتدقيق الاستدامة للشركات المصغرة</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +14,7 @@
             color: #333;
         }
         .carbon-calculator-card {
-            max-width: 550px;
+            max-width: 600px;
             background: #ffffff;
             margin: 0 auto;
             padding: 30px;
@@ -22,9 +22,9 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
         h2 {
-            color: #10b981;
+            color: #0d9488;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-size: 22px;
         }
         .subtitle {
@@ -34,11 +34,11 @@
             margin-bottom: 25px;
         }
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
             color: #1e293b;
             font-size: 14px;
@@ -55,11 +55,11 @@
         }
         input:focus {
             outline: none;
-            border-color: #10b981;
+            border-color: #0d9488;
         }
         button {
             width: 100%;
-            background: #10b981;
+            background: #0d9488;
             color: white;
             border: none;
             padding: 14px;
@@ -70,72 +70,97 @@
             margin-top: 10px;
         }
         button:hover {
-            background: #059669;
+            background: #0f766e;
         }
         .btn-download {
-            background: #3b82f6;
-            margin-top: 12px;
+            background: #2563eb;
+            margin-top: 15px;
         }
         .btn-download:hover {
-            background: #2563eb;
+            background: #1d4ed8;
         }
         .result-box {
             margin-top: 25px;
             padding: 20px;
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
             border-radius: 10px;
-            text-align: center;
         }
         .result-box h3 {
             margin-top: 0;
-            color: #065f46;
+            color: #166534;
             font-size: 16px;
+            text-align: center;
         }
         #mainResultText {
             font-size: 18px;
             font-weight: bold;
-            color: #047857;
+            color: #15803d;
+            text-align: center;
             margin: 10px 0;
         }
         .breakdown {
             font-size: 13px;
             color: #374151;
             margin-top: 10px;
-            border-top: 1px dashed #a7f3d0;
+            border-top: 1px dashed #bbf7d0;
             padding-top: 10px;
-            text-align: right;
+        }
+        .recommendations {
+            margin-top: 15px;
+            padding: 12px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #1e40af;
+        }
+        .recommendations h4 {
+            margin: 0 0 8px 0;
+            color: #1d4ed8;
+            font-size: 14px;
+        }
+        .recommendations ul {
+            margin: 0;
+            padding-right: 20px;
+        }
+        .recommendations li {
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
 <div class="carbon-calculator-card">
-    <h2>حاسبة البصمة الكربونية للشركات المصغرة</h2>
-    <p class="subtitle">احسب الانبعاثات الشهرية لعملك واستخرج تقريرك الرسمي.</p>
+    <h2>حاسبة البصمة الكربونية وتدقيق الاستدامة</h2>
+    <p class="subtitle">أداة تقييم متقدمة للشركات المصغرة للحد من الانبعاثات والتحول نحو الطاقة النظيفة.</p>
 
     <div class="input-group">
-        <label for="elec">استهلاك الكهرباء الشهري (كيلوواط/ساعة):</label>
-        <input type="number" id="elec" placeholder="5000">
+        <label for="elec">استهلاك الكهرباء الشهري (kWh):</label>
+        <input type="number" id="elec" placeholder="مثال: 4000">
     </div>
 
     <div class="input-group">
-        <label for="gas">استهلاك البنزين الشهري (لتر):</label>
-        <input type="number" id="gas" placeholder="300">
+        <label for="gas">استهلاك البنزين الشهري (Liters):</label>
+        <input type="number" id="gas" placeholder="مثال: 250">
     </div>
 
     <div class="input-group">
-        <label for="diesel">استهلاك الديزل الشهري (لتر):</label>
-        <input type="number" id="diesel" placeholder="40">
+        <label for="diesel">استهلاك الديزل الشهري (Liters):</label>
+        <input type="number" id="diesel" placeholder="مثال: 100">
     </div>
 
-    <button onclick="calculateCarbon()">احسب إجمالي الانبعاثات</button>
+    <button onclick="calculateCarbon()">احسب وقم بتحليل الانبعاثات</button>
 
     <div class="result-box" id="resultBox" style="display: none;">
-        <h3>نتيجة التحليل البيئي:</h3>
+        <h3>نتيجة التدقيق البيئي:</h3>
         <p id="mainResultText"></p>
         <div class="breakdown" id="breakdownText"></div>
-        <button class="btn-download" onclick="downloadEnglishReport()">📥 Download English Report (.txt)</button>
+        <div class="recommendations" id="recommendationsBox">
+            <h4>💡 توصيات ذكية للحد من الانبعاثات والتحول الطاقي:</h4>
+            <ul id="recsList"></ul>
+        </div>
+        <button class="btn-download" onclick="downloadEnglishReport()">📥 Download Comprehensive Report (.txt)</button>
     </div>
 </div>
 
@@ -147,9 +172,9 @@ function calculateCarbon() {
     let gasoline = parseFloat(document.getElementById('gas').value) || 0;
     let diesel = parseFloat(document.getElementById('diesel').value) || 0;
 
-    const factorElec = 0.475;
-    const factorGas = 2.31;
-    const factorDiesel = 2.68;
+    const factorElec = 0.475; // كجم CO2 لكل كيلوواط ساعة
+    const factorGas = 2.31;   // كجم CO2 لكل لتر بنزين
+    const factorDiesel = 2.68;// كجم CO2 لكل لتر ديزل
 
     let emissionsElec = electricity * factorElec;
     let emissionsGas = gasoline * factorGas;
@@ -157,6 +182,22 @@ function calculateCarbon() {
 
     let totalKg = emissionsElec + emissionsGas + emissionsDiesel;
     let totalTonnes = totalKg / 1000;
+
+    // توليد التوصيات الذكية بناء على حجم الاستهلاك
+    let recs = [];
+    if (electricity > 1000) {
+        let estimatedSolarKw = Math.ceil(electricity / 130); // تقدير حجم النظام الشمسي المطلوب تقريبياً
+        recs.push(`<strong>التحول للطاقة الشمسية:</strong> استهلاكك العالي للكهرباء يشير إلى جدوى اقتصادية ممتازة لتركيب نظام طاقة شمسية كظهير نظيف يقدر بنحو (${estimatedSolarKw} كيلوواط)، مما قد يخفض فاتورة الكهرباء بنسبة تصل إلى 70%.`);
+        recs.push(`<strong>كفاءة الطاقة:</strong> استبدال الإضاءة الحالية بأضواء LED متطورة واعتماد أنظمة الإطفاء التلقائي للأجهزة غير المستخدمة.`);
+    } else {
+        recs.push(`<strong>ترشيد الكهرباء:</strong> الحفاظ على الصيانة الدورية للأجهزة المكتبية ومكيفات الهواء لتقليل الهدر الطاقي.`);
+    }
+
+    if (gasoline > 150 || diesel > 50) {
+        recs.push(`<strong>إدارة الأسطول والنقل:</strong> تحسين مسارات التوصيل واستخدام المركبات الهجينة (Hybrid) أو الكهربائية تدريجياً لتقليل انبعاثات الوقود الأحفوري.`);
+    }
+
+    recs.push(`<strong>التدقيق المستمر:</strong> إعادة تقييم الأداء البيئي بشكل ربع سنوي لقياس نسبة التحسن وخفض التكاليف التشغيلية.`);
 
     lastReportData = {
         elec: electricity,
@@ -166,34 +207,55 @@ function calculateCarbon() {
         emGas: emissionsGas.toFixed(1),
         emDiesel: emissionsDiesel.toFixed(1),
         total: totalTonnes.toFixed(3),
-        date: new Date().toISOString().slice(0, 10)
+        date: new Date().toISOString().slice(0, 10),
+        recs: recs
     };
 
     let resultBox = document.getElementById('resultBox');
     let mainText = document.getElementById('mainResultText');
     let breakdownText = document.getElementById('breakdownText');
+    let recsList = document.getElementById('recsList');
 
     resultBox.style.display = 'block';
-    
-    mainText.innerHTML = `إجمالي البصمة: ${lastReportData.total} طن متري من CO₂`;
+    mainText.innerHTML = `إجمالي البصمة: ${lastReportData.total} طن متري من CO₂ شهرياً`;
     
     breakdownText.innerHTML = `
-        <strong>التفصيل حسب المصدر:</strong><br>
-        - الكهرباء: ${lastReportData.emElec} كجم CO₂<br>
-        - البنزين: ${lastReportData.emGas} كجم CO₂<br>
-        - الديزل: ${lastReportData.emDiesel} كجم CO₂
+        <strong>التفصيل الدقيق للانبعاثات:</strong><br>
+        - استهلاك الكهرباء: ${lastReportData.emElec} كجم CO₂<br>
+        - استهلاك البنزين: ${lastReportData.emGas} كجم CO₂<br>
+        - استهلاك الديزل: ${lastReportData.emDiesel} كجم CO₂
     `;
+
+    recsList.innerHTML = recs.map(r => `<li>${r}</li>`).join('');
 }
 
 function downloadEnglishReport() {
     if (!lastReportData.total) return;
 
-    let reportText = `CARBON FOOTPRINT AUDIT REPORT\nDate: ${lastReportData.date}\n\n- Monthly Electricity Consumption: ${lastReportData.elec} kWh\n- Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n- Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\nTotal Carbon Footprint: ${lastReportData.total} Metric Tonnes of CO2\n\nEmission Breakdown:\n- Electricity Emissions: ${lastReportData.emElec} kg CO2\n- Gasoline Emissions: ${lastReportData.emGas} kg CO2\n- Diesel Emissions: ${lastReportData.emDiesel} kg CO2`;
+    let reportText = `========================================\n` +
+                     `   COMPREHENSIVE CARBON & SUSTAINABILITY REPORT\n` +
+                     `========================================\n` +
+                     `Date: ${lastReportData.date}\n\n` +
+                     `1. ACTIVITY DATA INPUTS:\n` +
+                     `- Monthly Electricity Consumption: ${lastReportData.elec} kWh\n` +
+                     `- Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n` +
+                     `- Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\n` +
+                     `2. EMISSIONS BREAKDOWN:\n` +
+                     `- Electricity Emissions: ${lastReportData.emElec} kg CO2\n` +
+                     `- Gasoline Emissions: ${lastReportData.emGas} kg CO2\n` +
+                     `- Diesel Emissions: ${lastReportData.emDiesel} kg CO2\n\n` +
+                     `3. TOTAL CARBON FOOTPRINT:\n` +
+                     `=> ${lastReportData.total} Metric Tonnes of CO2 / Month\n\n` +
+                     `4. STRATEGIC RECOMMENDATIONS & SOLAR TRANSITION:\n` +
+                     `- Transition to Solar Energy: High electricity usage indicates strong feasibility for a Solar PV installation to significantly reduce grid reliance and operational costs.\n` +
+                     `- Fleet Efficiency: Optimize logistics and consider gradual adoption of hybrid/electric vehicles.\n` +
+                     `- Energy Audits: Implement routine quarterly monitoring to track carbon reduction milestones.\n\n` +
+                     `* Note: This is an analytical estimation tool designed for internal corporate sustainability management and preliminary baseline assessments.\n`;
 
     let blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `Carbon_Report_${lastReportData.date}.txt`;
+    link.download = `Sustainability_Audit_Report_${lastReportData.date}.txt`;
     link.click();
 }
 </script>
