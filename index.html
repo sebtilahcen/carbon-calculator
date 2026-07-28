@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -117,17 +116,17 @@
 
     <div class="input-group">
         <label for="elec">استهلاك الكهرباء الشهري (كيلوواط/ساعة):</label>
-        <input type="number" id="elec" placeholder="1200">
+        <input type="number" id="elec" placeholder="5000">
     </div>
 
     <div class="input-group">
         <label for="gas">استهلاك البنزين الشهري (لتر):</label>
-        <input type="number" id="gas" placeholder="150">
+        <input type="number" id="gas" placeholder="300">
     </div>
 
     <div class="input-group">
         <label for="diesel">استهلاك الديزل الشهري (لتر):</label>
-        <input type="number" id="diesel" placeholder="0">
+        <input type="number" id="diesel" placeholder="40">
     </div>
 
     <button onclick="calculateCarbon()">احسب إجمالي الانبعاثات</button>
@@ -189,9 +188,8 @@ function calculateCarbon() {
 function downloadEnglishReport() {
     if (!lastReportData.total) return;
 
-    let reportText = `📊 CARBON FOOTPRINT AUDIT REPORT\n📅 Date: ${lastReportData.date}\n\n▪️ Monthly Electricity Consumption: ${lastReportData.elec} kWh\n▪️ Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n▪️ Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\n🌍 Total Carbon Footprint: ${lastReportData.total} Metric Tonnes of CO₂\n\nEmission Breakdown:\n- Electricity Emissions: ${lastReportData.emElec} kg CO₂\n- Gasoline Emissions: ${lastReportData.emGas} kg CO₂\n- Diesel Emissions: ${lastReportData.emDiesel} kg CO₂`;
+    let reportText = `CARBON FOOTPRINT AUDIT REPORT\nDate: ${lastReportData.date}\n\n- Monthly Electricity Consumption: ${lastReportData.elec} kWh\n- Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n- Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\nTotal Carbon Footprint: ${lastReportData.total} Metric Tonnes of CO2\n\nEmission Breakdown:\n- Electricity Emissions: ${lastReportData.emElec} kg CO2\n- Gasoline Emissions: ${lastReportData.emGas} kg CO2\n- Diesel Emissions: ${lastReportData.emDiesel} kg CO2`;
 
-    // إنشاء ملف نصي وهمي وتحميله تلقائياً
     let blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
     let link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
