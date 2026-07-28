@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -72,11 +73,11 @@
         button:hover {
             background: #059669;
         }
-        .btn-copy {
+        .btn-download {
             background: #3b82f6;
             margin-top: 12px;
         }
-        .btn-copy:hover {
+        .btn-download:hover {
             background: #2563eb;
         }
         .result-box {
@@ -106,19 +107,13 @@
             padding-top: 10px;
             text-align: right;
         }
-        #copyNotification {
-            font-size: 12px;
-            color: #2563eb;
-            margin-top: 8px;
-            display: none;
-        }
     </style>
 </head>
 <body>
 
 <div class="carbon-calculator-card">
     <h2>حاسبة البصمة الكربونية للشركات المصغرة</h2>
-    <p class="subtitle">احسب الانبعاثات الشهرية لعملك بدقة واستخرج التقرير الفوري باللغة الإنجليزية.</p>
+    <p class="subtitle">احسب الانبعاثات الشهرية لعملك واستخرج تقريرك الرسمي.</p>
 
     <div class="input-group">
         <label for="elec">استهلاك الكهرباء الشهري (كيلوواط/ساعة):</label>
@@ -141,8 +136,7 @@
         <h3>نتيجة التحليل البيئي:</h3>
         <p id="mainResultText"></p>
         <div class="breakdown" id="breakdownText"></div>
-        <button class="btn-copy" onclick="copyDetailedReport()">📋 Copy Detailed English Report</button>
-        <div id="copyNotification">Report copied successfully to clipboard!</div>
+        <button class="btn-download" onclick="downloadEnglishReport()">📥 Download English Report (.txt)</button>
     </div>
 </div>
 
@@ -181,7 +175,6 @@ function calculateCarbon() {
     let breakdownText = document.getElementById('breakdownText');
 
     resultBox.style.display = 'block';
-    document.getElementById('copyNotification').style.display = 'none';
     
     mainText.innerHTML = `إجمالي البصمة: ${lastReportData.total} طن متري من CO₂`;
     
@@ -193,20 +186,17 @@ function calculateCarbon() {
     `;
 }
 
-function copyDetailedReport() {
+function downloadEnglishReport() {
     if (!lastReportData.total) return;
 
     let reportText = `📊 CARBON FOOTPRINT AUDIT REPORT\n📅 Date: ${lastReportData.date}\n\n▪️ Monthly Electricity Consumption: ${lastReportData.elec} kWh\n▪️ Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n▪️ Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\n🌍 Total Carbon Footprint: ${lastReportData.total} Metric Tonnes of CO₂\n\nEmission Breakdown:\n- Electricity Emissions: ${lastReportData.emElec} kg CO₂\n- Gasoline Emissions: ${lastReportData.emGas} kg CO₂\n- Diesel Emissions: ${lastReportData.emDiesel} kg CO₂`;
 
-    navigator.clipboard.writeText(reportText).then(() => {
-        let notification = document.getElementById('copyNotification');
-        notification.style.display = 'block';
-        setTimeout(() => {
-            notification.style.display = 'none';
-        }, 4000);
-    }).catch(err => {
-        alert('Failed to copy. Please try again.');
-    });
+    // إنشاء ملف نصي وهمي وتحميله تلقائياً
+    let blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
+    let link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Carbon_Report_${lastReportData.date}.txt`;
+    link.click();
 }
 </script>
 
