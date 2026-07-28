@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Carbon Footprint & Sustainability Audit Suite</title>
+    <title>Enterprise Carbon Footprint & Sustainability Audit</title>
     <style>
         :root {
             --primary: #0f766e;
@@ -21,47 +21,35 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg-color);
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px 10px;
             color: var(--text-main);
             line-height: 1.5;
         }
         .container {
-            max-width: 700px;
+            max-width: 600px;
             background: var(--card-bg);
             margin: 0 auto;
-            padding: 40px;
+            padding: 25px 20px;
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
+            box-sizing: border-box;
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         h1 {
             color: var(--primary);
-            font-size: 24px;
-            margin: 0 0 8px 0;
+            font-size: 20px;
+            margin: 0 0 6px 0;
         }
         .subtitle {
             color: var(--text-muted);
-            font-size: 14px;
-        }
-        .grid-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 600px) {
-            .grid-inputs {
-                grid-template-columns: 1fr;
-            }
+            font-size: 13px;
         }
         .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group.full-width {
-            grid-column: span 2;
+            margin-bottom: 16px;
         }
         label {
             display: block;
@@ -77,7 +65,7 @@
             border-radius: 8px;
             font-size: 15px;
             box-sizing: border-box;
-            transition: border-color 0.2s;
+            background-color: #fff;
         }
         input:focus {
             outline: none;
@@ -94,76 +82,63 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
             margin-top: 10px;
         }
         .btn-calculate:hover {
             background: var(--primary-hover);
         }
         .result-section {
-            margin-top: 30px;
+            margin-top: 25px;
             display: none;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
         .summary-card {
             background: var(--success-bg);
             border: 1px solid var(--success-border);
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .summary-card h3 {
             margin: 0;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--success-text);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
         .total-emissions {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 800;
             color: #14532d;
-            margin: 8px 0;
+            margin: 6px 0;
         }
-        .breakdown-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
+        .breakdown-list {
             font-size: 13px;
-            text-align: right;
+            text-align: left;
             border-top: 1px dashed var(--success-border);
-            padding-top: 15px;
+            padding-top: 10px;
+            margin-top: 10px;
             color: #374151;
         }
         .recommendations-box {
             background: #eff6ff;
             border: 1px solid #bfdbfe;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
         .recommendations-box h4 {
-            margin: 0 0 12px 0;
+            margin: 0 0 8px 0;
             color: #1e40af;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 14px;
         }
         .recommendations-box ul {
             margin: 0;
-            padding-left: 20px;
+            padding-left: 18px;
             font-size: 13px;
             color: #1e3a8a;
         }
         .recommendations-box li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .btn-download {
             width: 100%;
@@ -175,7 +150,6 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
         }
         .btn-download:hover {
             background: #1d4ed8;
@@ -186,31 +160,33 @@
 
 <div class="container">
     <header>
-        <h1>Enterprise Carbon Footprint & Sustainability Audit</h1>
-        <p class="subtitle">Advanced environmental assessment toolkit for small businesses and commercial operations.</p>
+        <h1>Carbon Footprint & Audit Tool</h1>
+        <p class="subtitle">Small business environmental assessment toolkit.</p>
     </header>
 
-    <div class="grid-inputs">
-        <div class="input-group">
-            <label for="elec">Monthly Electricity (kWh)</label>
-            <input type="number" id="elec" placeholder="e.g., 4000" min="0">
-        </div>
-        <div class="input-group">
-            <label for="gas">Monthly Gasoline (Liters)</label>
-            <input type="number" id="gas" placeholder="e.g., 250" min="0">
-        </div>
-        <div class="input-group">
-            <label for="diesel">Monthly Diesel (Liters)</label>
-            <input type="number" id="diesel" placeholder="e.g., 100" min="0">
-        </div>
-        <div class="input-group">
-            <label for="lpg">Natural Gas / LPG (m³ or Units)</label>
-            <input type="number" id="lpg" placeholder="e.g., 50" min="0">
-        </div>
-        <div class="input-group full-width">
-            <label for="logistics">Freight & Delivery Logistics (Est. km / month)</label>
-            <input type="number" id="logistics" placeholder="e.g., 1200" min="0">
-        </div>
+    <div class="input-group">
+        <label for="elec">Monthly Electricity (kWh)</label>
+        <input type="number" id="elec" placeholder="e.g., 4000" min="0">
+    </div>
+
+    <div class="input-group">
+        <label for="gas">Monthly Gasoline (Liters)</label>
+        <input type="number" id="gas" placeholder="e.g., 250" min="0">
+    </div>
+
+    <div class="input-group">
+        <label for="diesel">Monthly Diesel (Liters)</label>
+        <input type="number" id="diesel" placeholder="e.g., 100" min="0">
+    </div>
+
+    <div class="input-group">
+        <label for="lpg">Natural Gas / LPG (Units)</label>
+        <input type="number" id="lpg" placeholder="e.g., 50" min="0">
+    </div>
+
+    <div class="input-group">
+        <label for="logistics">Freight & Delivery Logistics (Est. km)</label>
+        <input type="number" id="logistics" placeholder="e.g., 1200" min="0">
     </div>
 
     <button class="btn-calculate" onclick="calculateCarbonFootprint()">Calculate & Generate Audit</button>
@@ -219,11 +195,11 @@
         <div class="summary-card">
             <h3>Total Estimated Carbon Emissions</h3>
             <div class="total-emissions" id="totalOutput">0.00 Metric Tonnes CO₂ / mo</div>
-            <div class="breakdown-grid" id="breakdownOutput"></div>
+            <div class="breakdown-list" id="breakdownOutput"></div>
         </div>
 
         <div class="recommendations-box">
-            <h4>💡 Strategic Decarbonization & Efficiency Guidelines:</h4>
+            <h4>💡 Strategic Recommendations:</h4>
             <ul id="recsList"></ul>
         </div>
 
@@ -241,12 +217,11 @@ function calculateCarbonFootprint() {
     let lpg = parseFloat(document.getElementById('lpg').value) || 0;
     let logistics = parseFloat(document.getElementById('logistics').value) || 0;
 
-    // Emission Factors (Standard Global Greenhouse Gas Protocol metrics)
-    const fElec = 0.475;      // kg CO2 per kWh
-    const fGas = 2.31;        // kg CO2 per liter
-    const fDiesel = 2.68;     // kg CO2 per liter
-    const fLpg = 2.98;        // kg CO2 per unit
-    const fLogistics = 0.21;  // kg CO2 per freight km (avg commercial delivery)
+    const fElec = 0.475;
+    const fGas = 2.31;
+    const fDiesel = 2.68;
+    const fLpg = 2.98;
+    const fLogistics = 0.21;
 
     let eElec = elec * fElec;
     let eGas = gas * fGas;
@@ -268,32 +243,30 @@ function calculateCarbonFootprint() {
         date: new Date().toISOString().slice(0, 10)
     };
 
-    // Generate Tailored Recommendations
     let recs = [];
     if (elec > 1500) {
         let solarKw = Math.ceil(elec / 130);
-        recs.push(`<strong>Solar PV Transition:</strong> High electricity consumption suggests high feasibility for a rooftop Solar PV installation of approximately <strong>${solarKw} kW</strong>, potentially slashing grid reliance by up to 65-75%.`);
-        recs.push(`<strong>Energy Audit & IoT:</strong> Implement smart thermostats and automated LED lighting schedules to curtail baseline idle consumption.`);
+        recs.push(`<strong>Solar PV Transition:</strong> High electricity usage indicates strong feasibility for a rooftop Solar PV system of ~<strong>${solarKw} kW</strong>, cutting grid reliance by up to 70%.`);
+        recs.push(`<strong>Energy Efficiency:</strong> Upgrade to automated LED lighting and smart climate controls.`);
     } else {
-        recs.push(`<strong>Energy Conservation:</strong> Maintain routine servicing of climate control and electrical assets to preserve peak operational efficiency.`);
+        recs.push(`<strong>Energy Conservation:</strong> Perform routine maintenance on electrical and office equipment.`);
     }
 
     if (gas > 200 || diesel > 100 || logistics > 800) {
-        recs.push(`<strong>Fleet Optimization:</strong> Optimize delivery routes and incorporate fuel-efficient hybrid or electric commercial vehicles to significantly suppress mobile combustion emissions.`);
+        recs.push(`<strong>Fleet Optimization:</strong> Streamline transport routes and consider adopting hybrid/electric delivery vehicles.`);
     }
 
-    recs.push(`<strong>Continuous Monitoring:</strong> Conduct quarterly footprint audits to monitor decarbonization milestones, reduce utility overheads, and comply with modern sustainability reporting standards.`);
+    recs.push(`<strong>Continuous Monitoring:</strong> Conduct quarterly audits to track carbon milestones and lower overheads.`);
 
-    // Display Results
     document.getElementById('resultSection').style.display = 'block';
     document.getElementById('totalOutput').innerHTML = `${globalData.total} Metric Tonnes CO₂ / mo`;
     
     document.getElementById('breakdownOutput').innerHTML = `
-        <div>Electricity: <strong>${globalData.eElec} kg</strong></div>
-        <div>Gasoline: <strong>${globalData.eGas} kg</strong></div>
-        <div>Diesel: <strong>${globalData.eDiesel} kg</strong></div>
-        <div>Natural Gas/LPG: <strong>${globalData.eLpg} kg</strong></div>
-        <div>Logistics/Freight: <strong>${globalData.eLogistics} kg</strong></div>
+        <div>- Electricity: <strong>${globalData.eElec} kg CO₂</strong></div>
+        <div>- Gasoline: <strong>${globalData.eGas} kg CO₂</strong></div>
+        <div>- Diesel: <strong>${globalData.eDiesel} kg CO₂</strong></div>
+        <div>- Natural Gas/LPG: <strong>${globalData.eLpg} kg CO₂</strong></div>
+        <div>- Logistics/Freight: <strong>${globalData.eLogistics} kg CO₂</strong></div>
     `;
 
     document.getElementById('recsList').innerHTML = recs.map(r => `<li>${r}</li>`).join('');
@@ -320,11 +293,11 @@ function downloadReportTxt() {
                       `- Logistics Emissions: ${globalData.eLogistics} kg\n\n` +
                       `3. TOTAL CARBON FOOTPRINT:\n` +
                       `=> ${globalData.total} Metric Tonnes of CO2 equivalent / Month\n\n` +
-                      `4. STRATEGIC RECOMMENDATIONS & DECARBONIZATION PATHWAY:\n` +
-                      `- Renewable Energy Integration: Evaluate commercial solar panel configurations to offset grid dependency and reduce long-term operational expenses.\n` +
-                      `- Fleet & Logistics Modernization: Streamline distribution paths and prioritize energy-efficient transport options.\n` +
-                      `- Resource Efficiency: Establish systematic energy management protocols across all active office and workshop units.\n\n` +
-                      `* Disclaimer: This assessment report is generated via standardized greenhouse gas accounting methodologies for preliminary baseline internal auditing.\n`;
+                      `4. STRATEGIC RECOMMENDATIONS & DECARBONIZATION:\n` +
+                      `- Renewable Energy Integration: Evaluate commercial solar panel configurations.\n` +
+                      `- Fleet & Logistics Modernization: Streamline distribution paths.\n` +
+                      `- Resource Efficiency: Establish systematic energy management protocols.\n\n` +
+                      `* Disclaimer: Preliminary baseline internal auditing tool.\n`;
 
     let blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
     let link = document.createElement('a');
