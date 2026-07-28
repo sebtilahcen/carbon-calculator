@@ -50,6 +50,8 @@
             border-radius: 8px;
             font-size: 16px;
             box-sizing: border-box;
+            direction: ltr;
+            text-align: right;
         }
         input:focus {
             outline: none;
@@ -69,6 +71,13 @@
         }
         button:hover {
             background: #059669;
+        }
+        .btn-copy {
+            background: #3b82f6;
+            margin-top: 12px;
+        }
+        .btn-copy:hover {
+            background: #2563eb;
         }
         .result-box {
             margin-top: 25px;
@@ -97,27 +106,33 @@
             padding-top: 10px;
             text-align: right;
         }
+        #copyNotification {
+            font-size: 12px;
+            color: #2563eb;
+            margin-top: 8px;
+            display: none;
+        }
     </style>
 </head>
 <body>
 
 <div class="carbon-calculator-card">
     <h2>حاسبة البصمة الكربونية للشركات المصغرة</h2>
-    <p class="subtitle">احسب الانبعاثات الشهرية لعملك بدقة وبأبسط الطرق المعيارية.</p>
+    <p class="subtitle">احسب الانبعاثات الشهرية لعملك بدقة واستخرج التقرير الفوري باللغة الإنجليزية.</p>
 
     <div class="input-group">
         <label for="elec">استهلاك الكهرباء الشهري (كيلوواط/ساعة):</label>
-        <input type="number" id="elec" placeholder="مثال: 1200">
+        <input type="number" id="elec" placeholder="1200">
     </div>
 
     <div class="input-group">
         <label for="gas">استهلاك البنزين الشهري (لتر):</label>
-        <input type="number" id="gas" placeholder="مثال: 150">
+        <input type="number" id="gas" placeholder="150">
     </div>
 
     <div class="input-group">
         <label for="diesel">استهلاك الديزل الشهري (لتر):</label>
-        <input type="number" id="diesel" placeholder="مثال: 0">
+        <input type="number" id="diesel" placeholder="0">
     </div>
 
     <button onclick="calculateCarbon()">احسب إجمالي الانبعاثات</button>
@@ -126,10 +141,14 @@
         <h3>نتيجة التحليل البيئي:</h3>
         <p id="mainResultText"></p>
         <div class="breakdown" id="breakdownText"></div>
+        <button class="btn-copy" onclick="copyDetailedReport()">📋 Copy Detailed English Report</button>
+        <div id="copyNotification">Report copied successfully to clipboard!</div>
     </div>
 </div>
 
 <script>
+let lastReportData = {};
+
 function calculateCarbon() {
     let electricity = parseFloat(document.getElementById('elec').value) || 0;
     let gasoline = parseFloat(document.getElementById('gas').value) || 0;
@@ -146,20 +165,48 @@ function calculateCarbon() {
     let totalKg = emissionsElec + emissionsGas + emissionsDiesel;
     let totalTonnes = totalKg / 1000;
 
+    lastReportData = {
+        elec: electricity,
+        gas: gasoline,
+        diesel: diesel,
+        emElec: emissionsElec.toFixed(1),
+        emGas: emissionsGas.toFixed(1),
+        emDiesel: emissionsDiesel.toFixed(1),
+        total: totalTonnes.toFixed(3),
+        date: new Date().toISOString().slice(0, 10)
+    };
+
     let resultBox = document.getElementById('resultBox');
     let mainText = document.getElementById('mainResultText');
     let breakdownText = document.getElementById('breakdownText');
 
     resultBox.style.display = 'block';
+    document.getElementById('copyNotification').style.display = 'none';
     
-    mainText.innerHTML = `إجمالي البصمة: ${totalTonnes.toFixed(3)} طن متري من CO₂`;
+    mainText.innerHTML = `إجمالي البصمة: ${lastReportData.total} طن متري من CO₂`;
     
     breakdownText.innerHTML = `
         <strong>التفصيل حسب المصدر:</strong><br>
-        - الكهرباء: ${emissionsElec.toFixed(1)} كجم CO₂<br>
-        - البنزين: ${emissionsGas.toFixed(1)} كجم CO₂<br>
-        - الديزل: ${emissionsDiesel.toFixed(1)} كجم CO₂
+        - الكهرباء: ${lastReportData.emElec} كجم CO₂<br>
+        - البنزين: ${lastReportData.emGas} كجم CO₂<br>
+        - الديزل: ${lastReportData.emDiesel} كجم CO₂
     `;
+}
+
+function copyDetailedReport() {
+    if (!lastReportData.total) return;
+
+    let reportText = `📊 CARBON FOOTPRINT AUDIT REPORT\n📅 Date: ${lastReportData.date}\n\n▪️ Monthly Electricity Consumption: ${lastReportData.elec} kWh\n▪️ Monthly Gasoline Consumption: ${lastReportData.gas} Liters\n▪️ Monthly Diesel Consumption: ${lastReportData.diesel} Liters\n\n🌍 Total Carbon Footprint: ${lastReportData.total} Metric Tonnes of CO₂\n\nEmission Breakdown:\n- Electricity Emissions: ${lastReportData.emElec} kg CO₂\n- Gasoline Emissions: ${lastReportData.emGas} kg CO₂\n- Diesel Emissions: ${lastReportData.emDiesel} kg CO₂`;
+
+    navigator.clipboard.writeText(reportText).then(() => {
+        let notification = document.getElementById('copyNotification');
+        notification.style.display = 'block';
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 4000);
+    }).catch(err => {
+        alert('Failed to copy. Please try again.');
+    });
 }
 </script>
 
