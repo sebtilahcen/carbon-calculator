@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة البصمة الكربونية للشركات المصغرة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 40px 20px;
+            direction: rtl;
+            color: #333;
+        }
+        .carbon-calculator-card {
+            max-width: 550px;
+            background: #ffffff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #10b981;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+        button {
+            width: 100%;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #059669;
+        }
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .result-box h3 {
+            margin-top: 0;
+            color: #065f46;
+            font-size: 16px;
+        }
+        #mainResultText {
+            font-size: 18px;
+            font-weight: bold;
+            color: #047857;
+            margin: 10px 0;
+        }
+        .breakdown {
+            font-size: 13px;
+            color: #374151;
+            margin-top: 10px;
+            border-top: 1px dashed #a7f3d0;
+            padding-top: 10px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="carbon-calculator-card">
+    <h2>حاسبة البصمة الكربونية للشركات المصغرة</h2>
+    <p class="subtitle">احسب الانبعاثات الشهرية لعملك بدقة وبأبسط الطرق المعيارية.</p>
+
+    <div class="input-group">
+        <label for="elec">استهلاك الكهرباء الشهري (كيلوواط/ساعة):</label>
+        <input type="number" id="elec" placeholder="مثال: 1200">
+    </div>
+
+    <div class="input-group">
+        <label for="gas">استهلاك البنزين الشهري (لتر):</label>
+        <input type="number" id="gas" placeholder="مثال: 150">
+    </div>
+
+    <div class="input-group">
+        <label for="diesel">استهلاك الديزل الشهري (لتر):</label>
+        <input type="number" id="diesel" placeholder="مثال: 0">
+    </div>
+
+    <button onclick="calculateCarbon()">احسب إجمالي الانبعاثات</button>
+
+    <div class="result-box" id="resultBox" style="display: none;">
+        <h3>نتيجة التحليل البيئي:</h3>
+        <p id="mainResultText"></p>
+        <div class="breakdown" id="breakdownText"></div>
+    </div>
+</div>
+
+<script>
+function calculateCarbon() {
+    let electricity = parseFloat(document.getElementById('elec').value) || 0;
+    let gasoline = parseFloat(document.getElementById('gas').value) || 0;
+    let diesel = parseFloat(document.getElementById('diesel').value) || 0;
+
+    const factorElec = 0.475;
+    const factorGas = 2.31;
+    const factorDiesel = 2.68;
+
+    let emissionsElec = electricity * factorElec;
+    let emissionsGas = gasoline * factorGas;
+    let emissionsDiesel = diesel * factorDiesel;
+
+    let totalKg = emissionsElec + emissionsGas + emissionsDiesel;
+    let totalTonnes = totalKg / 1000;
+
+    let resultBox = document.getElementById('resultBox');
+    let mainText = document.getElementById('mainResultText');
+    let breakdownText = document.getElementById('breakdownText');
+
+    resultBox.style.display = 'block';
+    
+    mainText.innerHTML = `إجمالي البصمة: ${totalTonnes.toFixed(3)} طن متري من CO₂`;
+    
+    breakdownText.innerHTML = `
+        <strong>التفصيل حسب المصدر:</strong><br>
+        - الكهرباء: ${emissionsElec.toFixed(1)} كجم CO₂<br>
+        - البنزين: ${emissionsGas.toFixed(1)} كجم CO₂<br>
+        - الديزل: ${emissionsDiesel.toFixed(1)} كجم CO₂
+    `;
+}
+</script>
+
+</body>
+</html>
